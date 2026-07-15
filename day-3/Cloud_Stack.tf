@@ -47,7 +47,7 @@ data "aws_ami" "my_ami" {
 
 resource "aws_instance" "shiv_vpc_instance" {
   ami                    = data.aws_ami.my_ami.id
-  count = 2
+  count                  = 2
   instance_type          = var.instance_type
   availability_zone      = var.availability_zones[0]
   vpc_security_group_ids = [aws_security_group.my_sg.id]
@@ -61,11 +61,11 @@ resource "aws_instance" "shiv_vpc_instance" {
     create_before_destroy = true
     //prevent_destroy = true
     ignore_changes = [
-    tags
-  ]
+      tags
+    ]
   }
 
-tags = {
-  Name = "Shiv-vpc-TWS-${count.index}"
-}
+  tags = {
+    Name = "Shiv-vpc-${count.index}"
+  }
 }
